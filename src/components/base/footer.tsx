@@ -19,7 +19,7 @@ const FooterLink = ({ label }: FooterLinkProps) => {
 
 export const Footer = () => {
   return (
-    <div className="bg-accent/15 w-full flex py-16 justify-center">
+    <div className="w-full flex py-16 justify-center">
       <div className="w-full flex flex-col max-w-[1280px] px-2">
         <div className="flex items-center space-x-3 mb-10">
           <Button variant="outline" size="icon">

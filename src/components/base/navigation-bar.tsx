@@ -1,5 +1,5 @@
-import { RouteName, getPathDefinition, getRoutePath } from "@/routes";
-import { useMatch, useNavigate } from "react-router-dom";
+import { RouteName, getRoutePath } from "@/routes";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { GitHubLogoIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import {
@@ -13,21 +13,16 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { SelectedUserProvider } from "@/providers/selected-user-provider";
+import { useScrollTop } from "@/hooks/use-scroll-top";
 
 type NavigationListItemProps = {
   label: string;
   routeName: RouteName;
 };
 
-const NavigationListItem = ({ label, routeName }: NavigationListItemProps) => {
-  const isSelected = useMatch(getPathDefinition(routeName).replace("*", ""));
-
+const NavigationListItem = ({ label }: NavigationListItemProps) => {
   return (
-    <li
-      className={`cursor-pointer text-sm ${
-        isSelected ? "text-primary" : "text-muted-foreground"
-      } hover:text-primary duration-100 transition-all`}
-    >
+    <li className="cursor-pointer text-sm duration-100 transition-all">
       {label}
     </li>
   );
@@ -36,13 +31,19 @@ const NavigationListItem = ({ label, routeName }: NavigationListItemProps) => {
 export const NavigationBar = () => {
   const navigate = useNavigate();
 
+  const scrollTop = useScrollTop();
+
   const { user } = SelectedUserProvider.useSelectedUser();
 
   return (
-    <nav className="px-4 z-50 bg-background flex justify-center h-[60px] w-screen border-b fixed top-0">
+    <nav
+      className={`px-4 ${
+        scrollTop < 100 ? "bg-transparent" : "bg-background border-b"
+      } z-50 flex justify-center h-[60px] w-screen fixed top-0 transition-all duration-50`}
+    >
       <div className="max-w-[1280px] w-full h-full flex justify-between items-center">
         <div className="flex items-center">
-          <h4 className="scroll-m-20 font-semibold tracking-tight mr-20 text-muted-foreground">
+          <h4 className="scroll-m-20 font-semibold tracking-tight mr-20 text-primary">
             <i>Coderama Movies</i>
           </h4>
 

@@ -1,4 +1,3 @@
-import { Footer } from "@/components/base/footer";
 import { NavigationBar } from "@/components/base/navigation-bar";
 
 export type BaseLayoutProps = {
@@ -7,12 +6,10 @@ export type BaseLayoutProps = {
 
 export const BaseLayout = ({ children }: BaseLayoutProps) => {
   return (
-    <section className="min-h-screen flex flex-col pt-[60px] items-center">
+    <section className="min-h-screen flex flex-col items-center">
       <NavigationBar />
 
       {children}
-
-      <Footer />
     </section>
   );
 };
