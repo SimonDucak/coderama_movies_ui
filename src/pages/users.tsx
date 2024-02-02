@@ -26,7 +26,6 @@ export const Users = () => {
 
       setUsers(foundUsers);
     } catch (err) {
-      console.log(err);
       toast({
         title: "Uh oh! Something went wrong.",
         description: "There was a problem with your request.",
@@ -100,7 +99,7 @@ export const Users = () => {
           ))}
 
         {fetchUsersTask.isRunning &&
-          Array.from({ length: 4 }).map((_, index) => (
+          Array.from({ length: 3 }).map((_, index) => (
             <UserTileSkeleton key={index} />
           ))}
       </div>

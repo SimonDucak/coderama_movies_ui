@@ -31,13 +31,17 @@ export abstract class AzureBaseAdapter<T extends { id: number }> {
     }
 
     public async parseResponse(response: Response): Promise<unknown> {
-        if (response.status > 300) {
-            throw new Error(response.statusText);
-        }
+        this.handleResponse(response);
 
         const data = await response.json();
 
         return data;
+    }
+
+    public handleResponse(response: Response): void {
+        if (response.status > 300) {
+            throw new Error(response.statusText);
+        }
     }
 
     public serialize(data: T): string {

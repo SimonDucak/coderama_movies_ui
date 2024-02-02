@@ -17,4 +17,18 @@ export class AzureUserAdapter extends AzureBaseAdapter<User> {
             avatarImage: String(record.avatarImage),
         };
     }
+
+    async put(record: User): Promise<void> {
+        const url = this.buildUrl();
+
+        const response = await fetch(url, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: this.serialize(record),
+        });
+
+        this.handleResponse(response);
+    }
 }
