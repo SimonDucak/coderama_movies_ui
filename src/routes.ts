@@ -1,5 +1,6 @@
 export enum RouteName {
     USERS,
+    UPDATE_USER,
     MOVIES,
     MOVIE_DETAILS,
     SEARCH_MOVIES,
@@ -10,7 +11,9 @@ export const getPathDefinition = (routeName: RouteName): string => {
     switch (routeName) {
         case RouteName.USERS:
             return "/";
-        case RouteName.MOVIES:
+        case RouteName.UPDATE_USER:
+            return "/user/update";
+        case RouteName.MOVIES: 
             return "/movies";
         case RouteName.SEARCH_MOVIES:
             return "/search-movies";

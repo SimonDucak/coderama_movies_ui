@@ -20,9 +20,14 @@ type NavigationListItemProps = {
   routeName: RouteName;
 };
 
-const NavigationListItem = ({ label }: NavigationListItemProps) => {
+const NavigationListItem = ({ label, routeName }: NavigationListItemProps) => {
+  const navigate = useNavigate();
+
   return (
-    <li className="cursor-pointer text-sm duration-100 transition-all">
+    <li
+      onClick={() => navigate(getRoutePath(routeName))}
+      className="cursor-pointer text-sm duration-100 transition-all"
+    >
       {label}
     </li>
   );
@@ -36,12 +41,16 @@ export const NavigationBar = () => {
   const { user } = SelectedUserProvider.useSelectedUser();
 
   return (
-    <nav
-      className={`px-4 ${
-        scrollTop < 100 ? "bg-transparent" : "bg-background border-b"
-      } z-50 flex justify-center h-[60px] w-screen fixed top-0 transition-all duration-50`}
-    >
-      <div className="max-w-[1280px] w-full h-full flex justify-between items-center">
+    <nav className="px-4 z-50 flex justify-center h-[60px] w-screen fixed top-0 transition-all duration-50">
+      <div className="w-full overflow-hidden h-full absolute top-0 left-0">
+        <div
+          className={`w-full h-full bg-background transition-all duration-200 ${
+            scrollTop > 100 ? "-translate-y-0" : "-translate-y-full"
+          }`}
+        ></div>
+      </div>
+
+      <div className="max-w-[1280px] w-full h-full flex justify-between z-10 items-center">
         <div className="flex items-center">
           <h4 className="scroll-m-20 font-semibold tracking-tight mr-20 text-primary">
             <i>Coderama Movies</i>
@@ -63,9 +72,14 @@ export const NavigationBar = () => {
             <span className="text-muted-foreground">Search in Movies...</span>
           </Button>
 
-          <Button variant="outline" size="icon">
-            <GitHubLogoIcon className="h-4 w-4" />
-          </Button>
+          <a
+            href="https://github.com/SimonDucak/coderama_movies_ui"
+            target="_blank"
+          >
+            <Button variant="outline" size="icon">
+              <GitHubLogoIcon className="h-4 w-4" />
+            </Button>
+          </a>
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -84,7 +98,10 @@ export const NavigationBar = () => {
               <DropdownMenuSeparator />
 
               <DropdownMenuGroup>
-                <DropdownMenuItem className="cursor-pointer">
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  onClick={() => navigate(getRoutePath(RouteName.UPDATE_USER))}
+                >
                   Update Profile
                 </DropdownMenuItem>
 

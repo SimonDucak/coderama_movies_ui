@@ -1,8 +1,5 @@
-import {
-  CoderamaCarousel,
-  CoderamaCarouselSkeleton,
-} from "@/components/base/carousel";
 import { Footer } from "@/components/base/footer";
+import { MoviesCarousel } from "@/components/movie/movies-carousel";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { BaseLayout } from "@/layouts/base-layout";
@@ -16,12 +13,12 @@ export const Movies = () => {
     <BaseLayout>
       <div className="w-full absolute top-0 left-0 h-[100vh] flex items-center bg-center bg-cover bg-no-repeat justify-center">
         <video
-          className="aspect-video w-full absolute top-0 left-0"
+          className="w-full absolute top-0 left-0"
           autoPlay
           loop
           muted={muted}
         >
-          <source src="dunkirk.mp4" />
+          <source src="batman.mp4" />
         </video>
 
         <div className="max-w-[1280px] w-full h-full py-40 z-40">
@@ -29,25 +26,31 @@ export const Movies = () => {
             MOVIE OF THE DAY
           </h2>
 
-          <h2 className="mb-5 text-6xl font-extrabold tracking">Dunkirk</h2>
+          <h2 className="mb-5 text-6xl font-extrabold tracking">
+            The Dark Knight
+          </h2>
 
           <div className="flex items-center space-x-2 mb-5">
             <Badge className="bg-transparent border text-primary border-primary hover:bg-transparent">
               Action
             </Badge>
             <Badge className="bg-transparent border text-primary border-primary hover:bg-transparent">
-              Drama
+              Crime
             </Badge>
             <Badge className="bg-transparent border text-primary border-primary hover:bg-transparent">
-              History
+              Drama
             </Badge>
           </div>
 
-          <p className="text-primary/70 mb-10 w-full max-w-[450px] leading-7">
-            Allied soldiers from Belgium, the British Commonwealth and Empire,
-            and France are surrounded by the German Army and evacuated during a
-            fierce battle in World War II.
+          <p className="text-primary/70 mb-4 w-full max-w-[450px] leading-7">
+            When the menace known as the Joker wreaks havoc and chaos on the
+            people of Gotham, Batman must accept one of the greatest
+            psychological and physical tests of his ability to fight injustice.
           </p>
+
+          <div className="text-primary/70 mb-10  w-full max-w-[450px] leading-7 text-xs">
+            Acation | 2008 | 2hr 32min
+          </div>
 
           <div className="flex items-center space-x-3">
             <Button
@@ -75,29 +78,18 @@ export const Movies = () => {
       </div>
 
       <div className="max-w-[1280px] relative top-[75vh] z-40 w-full h-full py-10">
-        <h2 className="text-3xl font-extrabold tracking-tight lg:text-4xl">
-          Top 10 Movies in Slovakia Today
-        </h2>
+        <MoviesCarousel
+          title="Top 10 Movies in Slovakia Today"
+          searchQuery="batman"
+        />
 
-        <CoderamaCarouselSkeleton />
+        <MoviesCarousel title="New Releases" searchQuery="Blade" />
 
-        <h2 className="text-3xl font-extrabold tracking-tight lg:text-4xl">
-          New Releases
-        </h2>
+        <MoviesCarousel title="Top Searches" searchQuery="Hobbit" />
 
-        <CoderamaCarousel />
+        <MoviesCarousel title="Trending Now" searchQuery="Lord" />
 
-        <h2 className="text-3xl font-extrabold tracking-tight lg:text-4xl">
-          Top Searches
-        </h2>
-
-        <CoderamaCarousel />
-
-        <h2 className="text-3xl font-extrabold tracking-tight lg:text-4xl">
-          Trending Now
-        </h2>
-
-        <CoderamaCarousel />
+        <MoviesCarousel title="Recently Added" searchQuery="Marvel" />
 
         <Footer />
       </div>

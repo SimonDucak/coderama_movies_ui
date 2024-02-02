@@ -22,9 +22,14 @@ export const Footer = () => {
     <div className="w-full flex py-16 justify-center">
       <div className="w-full flex flex-col max-w-[1280px] px-2">
         <div className="flex items-center space-x-3 mb-10">
-          <Button variant="outline" size="icon">
-            <GitHubLogoIcon className="h-4 w-4" />
-          </Button>
+          <a
+            href="https://github.com/SimonDucak/coderama_movies_ui"
+            target="_blank"
+          >
+            <Button variant="outline" size="icon">
+              <GitHubLogoIcon className="h-4 w-4" />
+            </Button>
+          </a>
 
           <h4 className="scroll-m-20 tracking-tight mr-20">Coderama Movies</h4>
         </div>

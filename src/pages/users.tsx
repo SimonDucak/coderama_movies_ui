@@ -8,35 +8,8 @@ import { RouteName, getRoutePath } from "@/routes";
 import { User } from "@/types/User";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { faker } from "@faker-js/faker";
 import { Transition } from "@/components/base/transition";
-
-const usersData: User[] = [
-  {
-    id: 1,
-    username: "John Doe",
-    email: "johndoe@yahoo.com",
-    avatarImage: faker.image.avatar(),
-  },
-  {
-    id: 2,
-    username: "Jane Doe",
-    email: "janedoe@gmail.com",
-    avatarImage: faker.image.avatar(),
-  },
-  {
-    id: 3,
-    username: "Baz Qux",
-    email: "bazqux237@gmail.com",
-    avatarImage: faker.image.avatar(),
-  },
-  {
-    id: 4,
-    username: "Christian Bell",
-    email: "chbell9@coderama.sk",
-    avatarImage: faker.image.avatar(),
-  },
-];
+import { AzureUserAdapter } from "@/api/azure/AzureUserAdapter";
 
 export const Users = () => {
   const navigate = useNavigate();
@@ -49,10 +22,11 @@ export const Users = () => {
 
   const fetchUsersTask = useTask(async () => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      const foundUsers = await new AzureUserAdapter().getRecords();
 
-      setUsers(usersData);
+      setUsers(foundUsers);
     } catch (err) {
+      console.log(err);
       toast({
         title: "Uh oh! Something went wrong.",
         description: "There was a problem with your request.",
@@ -69,7 +43,6 @@ export const Users = () => {
   });
 
   useEffect(() => {
-    console.log("use effect");
     fetchUsersTask.perform();
   }, []);
 
