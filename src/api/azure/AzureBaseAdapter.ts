@@ -2,7 +2,7 @@ import { QueryBuilder } from "@/utils/QueryBuilder";
 
 // Taky moj experiment s TypeScriptom na handlovanie Azure API. 
 // Mohlo by sa to pouzit napr. na CRUD volania.
-export abstract class AzureBaseAdapter<T extends { id: number }> {
+export abstract class AzureBaseAdapter<T extends { id: number | null }> {
     abstract get model(): string;
 
     abstract parser(record: unknown): T;

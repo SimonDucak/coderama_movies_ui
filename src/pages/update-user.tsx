@@ -1,6 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import { BaseLayout } from "@/layouts/base-layout";
-import { SelectedUserProvider } from "@/providers/selected-user-provider";
+import { ApplicationProvider } from "@/providers/application-provider";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -38,7 +38,7 @@ const profileFormSchema = z.object({
 type SettingFormValues = z.infer<typeof profileFormSchema>;
 
 export const UpdateUser = () => {
-  const { user, setUser } = SelectedUserProvider.useSelectedUser();
+  const { user, setUser } = ApplicationProvider.useApplication();
 
   const { toast } = useToast();
 

@@ -3,18 +3,20 @@ import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";
 import { UserTile, UserTileSkeleton } from "@/components/user/user-tile";
 import { useTask } from "@/hooks/use-task";
-import { SelectedUserProvider } from "@/providers/selected-user-provider";
+import { ApplicationProvider } from "@/providers/application-provider";
 import { RouteName, getRoutePath } from "@/routes";
 import { User } from "@/types/User";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Transition } from "@/components/base/transition";
 import { AzureUserAdapter } from "@/api/azure/AzureUserAdapter";
+import { AzureFavouriteMovieAdapter } from "@/api/azure/AzureFavouriteMovieAdapter";
 
 export const Users = () => {
   const navigate = useNavigate();
 
-  const { setUser } = SelectedUserProvider.useSelectedUser();
+  const { setUser, setFavouriteMoviesIds } =
+    ApplicationProvider.useApplication();
 
   const { toast } = useToast();
 
@@ -64,10 +66,19 @@ export const Users = () => {
     }
   };
 
-  const openMovies = (selectedUser: User) => {
+  const openMoviesTask = useTask(async (selectedUser: User) => {
+    if (openMoviesTask.isRunning) return;
+
     setUser(selectedUser);
+
+    const myFavouriteMovievIds = await new AzureFavouriteMovieAdapter(
+      selectedUser.id
+    ).getImdbIds();
+
+    setFavouriteMoviesIds(myFavouriteMovievIds);
+
     navigate(getRoutePath(RouteName.MOVIES));
-  };
+  });
 
   return (
     <section className="min-h-screen px-4 py-20 flex flex-col justify-center items-center">
@@ -94,7 +105,7 @@ export const Users = () => {
             <UserTile
               key={user.id}
               user={user}
-              onClick={() => openMovies(user)}
+              onClick={openMoviesTask.perform}
             />
           ))}
 

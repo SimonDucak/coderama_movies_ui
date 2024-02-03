@@ -1,15 +1,56 @@
 import { Button } from "../ui/button";
-import { HeartIcon } from "@radix-ui/react-icons";
+import { HeartFilledIcon, HeartIcon, ReloadIcon } from "@radix-ui/react-icons";
 import { Card, CardContent } from "@/components/ui/card";
-import { Movie } from "@/api/use-movie-api";
+import { Movie } from "@/types/Movie";
+import { ApplicationProvider } from "@/providers/application-provider";
+import { useTask } from "@/hooks/use-task";
+import { useToast } from "../ui/use-toast";
+import { AzureFavouriteMovieAdapter } from "@/api/azure/AzureFavouriteMovieAdapter";
 
 export type MovieCardProps = {
   movie: Movie;
 };
 
 export const MovieCard = ({ movie }: MovieCardProps) => {
+  const { toast } = useToast();
+
+  const { containsFavouriteMovie, toggleFavouriteMovie, user } =
+    ApplicationProvider.useApplication();
+
+  const movieSelected = containsFavouriteMovie(movie.imdbID);
+
+  const toggleFavouriteTask = useTask(async () => {
+    try {
+      if (toggleFavouriteTask.isRunning || !user) return;
+
+      const adapter = new AzureFavouriteMovieAdapter(user.id);
+
+      if (!movieSelected) await adapter.post(movie);
+      else await adapter.delete(movie.imdbID);
+
+      toggleFavouriteMovie(movie.imdbID);
+    } catch (err) {
+      toast({
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+      });
+    }
+  });
+
+  const getButtonIcon = () => {
+    if (toggleFavouriteTask.isRunning)
+      return <ReloadIcon className="h-5 w-5 animate-spin" />;
+    if (movieSelected)
+      return <HeartFilledIcon className="h-5 w-5 text-destructive" />;
+    return <HeartIcon className="h-5 w-5" />;
+  };
+
+  const openMovie = () => {
+    console.log("Open movie Detail");
+  };
+
   return (
-    <Card className="overflow-hidden">
+    <Card onClick={openMovie} className="overflow-hidden">
       <CardContent className="p-0 m-0 relative cursor-pointer group flex h-[420px] items-center justify-center">
         <img
           className="w-full h-full object-fill group-hover:scale-105 transition-all duration-500"
@@ -18,11 +59,14 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
         />
 
         <Button
-          variant="secondary"
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleFavouriteTask.perform();
+          }}
           size="icon"
           className="absolute top-2 right-2"
         >
-          <HeartIcon className="h-5 w-5" />
+          {getButtonIcon()}
         </Button>
       </CardContent>
     </Card>

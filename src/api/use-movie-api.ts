@@ -1,14 +1,7 @@
+import { Movie } from "@/types/Movie";
 import { QueryBuilder } from "@/utils/QueryBuilder";
 import { tryParseNumber } from "@/utils/parsers";
 import { isObject } from "@/utils/typeof";
-
-export type Movie = {
-    title: string;
-    year: number | null;
-    imdbID: string;
-    type: string;
-    poster: string;
-}
 
 export const useMovieApi = () => {
     const apiKey = "cba778d7";

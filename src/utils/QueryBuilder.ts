@@ -27,6 +27,6 @@ export class QueryBuilder {
         this._params.forEach(param => {
             query += `${param.key}=${param.value}&`;
         });
-        return query;
+        return query.slice(0, -1);
     } 
 }

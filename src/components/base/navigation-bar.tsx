@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { SelectedUserProvider } from "@/providers/selected-user-provider";
+import { ApplicationProvider } from "@/providers/application-provider";
 import { useScrollTop } from "@/hooks/use-scroll-top";
 
 type NavigationListItemProps = {
@@ -38,7 +38,7 @@ export const NavigationBar = () => {
 
   const scrollTop = useScrollTop();
 
-  const { user } = SelectedUserProvider.useSelectedUser();
+  const { user } = ApplicationProvider.useApplication();
 
   return (
     <nav className="px-4 z-50 flex justify-center h-[60px] w-screen fixed top-0 transition-all duration-50">

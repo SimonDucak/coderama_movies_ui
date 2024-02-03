@@ -23,9 +23,8 @@ export const useTask = <T extends unknown[]>(performFn: PerformFn<T>) => {
     }
 }
 
-type UseTaskReturnType<T extends unknown[]> = {
+export type UseTaskReturnType<T extends unknown[]> = {
     isRunning: boolean;
     perform: (...params: T) => Promise<void>;
 };
 
-export type UseTaskFn = <T extends unknown[]>(performFn: PerformFn<T>) => UseTaskReturnType<T>;

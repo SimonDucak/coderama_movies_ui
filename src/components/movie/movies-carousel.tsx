@@ -1,4 +1,4 @@
-import { Movie, useMovieApi } from "@/api/use-movie-api";
+import { useMovieApi } from "@/api/use-movie-api";
 import {
   CoderamaCarousel,
   CoderamaCarouselSkeleton,
@@ -9,6 +9,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useEffect, useState } from "react";
 import { CarouselItem } from "@/components/ui/carousel";
 import { MovieCard } from "@/components/movie/movie-card";
+import { Movie } from "@/types/Movie";
 
 export type MoviesCarouselProps = {
   title: string;

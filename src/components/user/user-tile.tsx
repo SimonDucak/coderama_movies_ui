@@ -2,18 +2,23 @@ import { User } from "@/types/User";
 import { Card, CardHeader } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { ChevronRightIcon } from "@radix-ui/react-icons";
+import { ChevronRightIcon, ReloadIcon } from "@radix-ui/react-icons";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useTask } from "@/hooks/use-task";
 
 export type UserTileProps = {
   user: User;
-  onClick?: () => void;
+  onClick: (user: User) => Promise<void>;
 };
 
 export const UserTile = ({ user, onClick }: UserTileProps) => {
+  const { isRunning, perform } = useTask(onClick);
+
   return (
     <Card
-      onClick={onClick}
+      onClick={() => {
+        if (!isRunning) perform(user);
+      }}
       className="w-full max-w-[400px] cursor-pointer transition-all duration-300 hover:border-foreground group"
     >
       <CardHeader className="flex w-full justify-between flex-row items-center">
@@ -37,7 +42,12 @@ export const UserTile = ({ user, onClick }: UserTileProps) => {
           variant="outline"
           className="ml-4 rounded-full group-hover:bg-accent"
         >
-          <ChevronRightIcon className="h-4 w-4" />
+          {isRunning ? (
+            <ReloadIcon className="h-4 w-4 animate-spin" />
+          ) : (
+            <ChevronRightIcon className="h-4 w-4" />
+          )}
+
           <span className="sr-only">New message</span>
         </Button>
       </CardHeader>
