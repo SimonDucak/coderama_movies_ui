@@ -6,13 +6,18 @@ import { ApplicationProvider } from "@/providers/application-provider";
 import { useTask } from "@/hooks/use-task";
 import { useToast } from "../ui/use-toast";
 import { AzureFavouriteMovieAdapter } from "@/api/azure/AzureFavouriteMovieAdapter";
+import { useNavigate } from "react-router-dom";
+import { RouteName, getRoutePath } from "@/routes";
 
 export type MovieCardProps = {
   movie: Movie;
+  height?: number;
 };
 
-export const MovieCard = ({ movie }: MovieCardProps) => {
+export const MovieCard = ({ movie, height = 420 }: MovieCardProps) => {
   const { toast } = useToast();
+
+  const navigate = useNavigate();
 
   const { containsFavouriteMovie, toggleFavouriteMovie, user } =
     ApplicationProvider.useApplication();
@@ -45,13 +50,16 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
     return <HeartIcon className="h-5 w-5" />;
   };
 
-  const openMovie = () => {
-    console.log("Open movie Detail");
-  };
-
   return (
-    <Card onClick={openMovie} className="overflow-hidden">
-      <CardContent className="p-0 m-0 relative cursor-pointer group flex h-[420px] items-center justify-center">
+    <Card
+      onClick={() =>
+        navigate(getRoutePath(RouteName.MOVIE_DETAILS, { id: movie.imdbID }))
+      }
+      className="overflow-hidden"
+    >
+      <CardContent
+        className={`p-0 m-0 relative cursor-pointer group flex h-[${height}px] items-center justify-center`}
+      >
         <img
           className="w-full h-full object-fill group-hover:scale-105 transition-all duration-500"
           src={movie.poster}

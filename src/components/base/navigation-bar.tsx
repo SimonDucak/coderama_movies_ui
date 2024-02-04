@@ -1,5 +1,5 @@
-import { RouteName, getRoutePath } from "@/routes";
-import { useNavigate } from "react-router-dom";
+import { RouteName, getPathDefinition, getRoutePath } from "@/routes";
+import { useMatch, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { GitHubLogoIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import {
@@ -40,6 +40,8 @@ export const NavigationBar = () => {
 
   const { user } = ApplicationProvider.useApplication();
 
+  const isSearchPage = useMatch(getPathDefinition(RouteName.SEARCH_MOVIES));
+
   return (
     <nav className="px-4 z-50 flex justify-center h-[60px] w-screen fixed top-0 transition-all duration-50">
       <div className="w-full overflow-hidden h-full absolute top-0 left-0">
@@ -67,10 +69,16 @@ export const NavigationBar = () => {
         </div>
 
         <div className="flex flex-row space-x-4">
-          <Button variant="outline" className="w-[350px] flex justify-start">
-            <MagnifyingGlassIcon className="h-5 w-5 mr-2 text-muted-foreground" />
-            <span className="text-muted-foreground">Search in Movies...</span>
-          </Button>
+          {!isSearchPage && (
+            <Button
+              onClick={() => navigate(getRoutePath(RouteName.SEARCH_MOVIES))}
+              variant="outline"
+              className="w-[350px] flex justify-start"
+            >
+              <MagnifyingGlassIcon className="h-5 w-5 mr-2 text-muted-foreground" />
+              <span className="text-muted-foreground">Search in Movies...</span>
+            </Button>
+          )}
 
           <a
             href="https://github.com/SimonDucak/coderama_movies_ui"

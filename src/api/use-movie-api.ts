@@ -1,4 +1,4 @@
-import { Movie } from "@/types/Movie";
+import { FullMovie, Movie } from "@/types/Movie";
 import { QueryBuilder } from "@/utils/QueryBuilder";
 import { tryParseNumber } from "@/utils/parsers";
 import { isObject } from "@/utils/typeof";
@@ -19,6 +19,28 @@ export const useMovieApi = () => {
         }
     };
 
+    const parseFullMovie = (data: unknown): FullMovie => {
+        const obj = isObject(data) ? data : {};
+        const movie = parseMovie(obj);
+        return {
+            ...movie,
+            actors: String(obj.Actors),
+            awards: String(obj.Awards),
+            boxOffice: String(obj.BoxOffice),
+            country: String(obj.Country),
+            DVD: String(obj.DVD),
+            director: String(obj.Director),
+            genre: String(obj.Genre),
+            language: String(obj.Language),
+            metascore: String(obj.Metascore),
+            plot: String(obj.Plot),
+            released: String(obj.Released),
+            runtime: String(obj.Runtime),
+            imdbRating: String(obj.imdbRating),
+            imdbVotes: String(obj.imdbVotes),
+        }
+    }
+
     const parseResponse = async (response: Response) => {
         if (response.status > 300) {
             throw new Error(response.statusText);
@@ -26,6 +48,19 @@ export const useMovieApi = () => {
 
         return await response.json();
     };
+
+    const getFullMovie = async (imdbId: string): Promise<FullMovie> => {
+        const query = new QueryBuilder()
+            .addParam("apikey", apiKey)
+            .addParam("i", imdbId)
+            .addParam("plot", "full");
+
+        const response = await fetch(baseUrl + query.toString());
+
+        const data = await parseResponse(response);
+
+        return parseFullMovie(data);
+    }
 
     const getMovies = async (queryBuilder: QueryBuilder): Promise<{ totalResults: number | null, movies: Movie[] }> => {
         const query = queryBuilder
@@ -35,6 +70,8 @@ export const useMovieApi = () => {
         const response = await fetch(baseUrl + query);
         
         const data = await parseResponse(response);
+
+        if (data.Error) throw Error(data.Error);
 
         if (!Array.isArray(data.Search)) throw Error("Expected an array of movies");
 
@@ -46,5 +83,6 @@ export const useMovieApi = () => {
 
     return {
         getMovies,
+        getFullMovie,
     }
 };

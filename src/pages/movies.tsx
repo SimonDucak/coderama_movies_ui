@@ -49,7 +49,7 @@ export const Movies = () => {
           </p>
 
           <div className="text-primary/70 mb-10  w-full max-w-[450px] leading-7 text-xs">
-            Acation | 2008 | 2hr 32min
+            Action | 2008 | 2hr 32min
           </div>
 
           <div className="flex items-center space-x-3">

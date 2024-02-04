@@ -10,9 +10,11 @@ import { Users } from "@/pages/users";
 import { Movies } from "@/pages/movies";
 import { Toaster } from "@/components/ui/toaster";
 import { ApplicationProvider } from "@/providers/application-provider";
-import PrivateRoutes from "@/private-routes";
+import { PrivateRoutes, ScrollToTop } from "@/router-helpers";
 import { UpdateUser } from "@/pages/update-user";
 import { MyFavourites } from "./pages/my-favourites";
+import { MovieDetail } from "./pages/movie-detail";
+import { SearchMovies } from "./pages/search-movies";
 
 function App() {
   const { theme } = ThemeProvider.useTheme();
@@ -22,6 +24,8 @@ function App() {
       <ApplicationProvider>
         <main className="relative flex min-h-screen flex-col bg-background">
           <Router>
+            <ScrollToTop />
+
             <Routes>
               <Route element={<PrivateRoutes />}>
                 <Route
@@ -37,6 +41,16 @@ function App() {
                 <Route
                   path={getPathDefinition(RouteName.UPDATE_USER)}
                   element={<UpdateUser />}
+                />
+
+                <Route
+                  path={getPathDefinition(RouteName.MOVIE_DETAILS)}
+                  element={<MovieDetail />}
+                />
+
+                <Route
+                  path={getPathDefinition(RouteName.SEARCH_MOVIES)}
+                  element={<SearchMovies />}
                 />
               </Route>
 
