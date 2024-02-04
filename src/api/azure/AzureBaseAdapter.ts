@@ -9,7 +9,7 @@ export abstract class AzureBaseAdapter<T extends { id: number | null }> {
 
     public host: string = !process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? 
         'http://localhost:5242/api' : 
-        'https://api.azure.com/api';
+        'https://coderama-movies.azurewebsites.net/api';
 
     public buildUrl(queryBuilder: QueryBuilder | null = null): string {
         const query = queryBuilder?.toString() ?? '';

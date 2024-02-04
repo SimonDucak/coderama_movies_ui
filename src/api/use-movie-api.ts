@@ -6,7 +6,7 @@ import { isObject } from "@/utils/typeof";
 export const useMovieApi = () => {
     const apiKey = "cba778d7";
 
-    const baseUrl = "http://www.omdbapi.com/";
+    const baseUrl = "https://www.omdbapi.com/";
 
     const parseMovie = (data: unknown): Movie => {
         const obj = isObject(data) ? data : {};

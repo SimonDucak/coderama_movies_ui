@@ -68,6 +68,8 @@ export const SearchMovies = () => {
   });
 
   const loadMoreTask = useTask(async () => {
+    if (searchQuery.length < 3) return;
+
     const foundMovies = await getMovies(searchQuery);
 
     setMovies([...movies, ...foundMovies]);

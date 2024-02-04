@@ -92,7 +92,9 @@ export const NavigationBar = () => {
         <div className="flex flex-row space-x-3 lg:space-x-4">
           {!isSearchPage && (
             <Button
-              onClick={() => navigate(getRoutePath(RouteName.SEARCH_MOVIES))}
+              onClick={() => {
+                navigate(getRoutePath(RouteName.SEARCH_MOVIES));
+              }}
               variant="outline"
               className="w-10 px-2 lg:p-2 lg:w-[350px] flex justify-center lg:justify-start items-center"
             >
