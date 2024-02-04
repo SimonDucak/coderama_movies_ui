@@ -39,17 +39,17 @@ export const MovieDetail = () => {
   return (
     <BaseLayout>
       {!loadDetailsTask.isRunning && (
-        <div className="w-full flex max-w-[1280px] items-start pt-40 pb-20">
-          <div className="shrink-0 rounded-xl overflow-hidden">
+        <div className="w-full px-4 lg:px-0 flex flex-col-reverse lg:flex-row max-w-[1280px] items-start pt-[80px] lg:pt-40 pb-20">
+          <div className="shrink-0 rounded-xl mb-5 lg:mb-0 overflow-hidden">
             <img
               style={{ objectFit: "cover" }}
-              className="w-[300px] h-[400px]"
+              className="lg:w-[300px] w-full h-[400px]"
               src={movie?.poster}
               alt={movie?.title}
             />
           </div>
 
-          <div className="flex w-full pl-8 flex-col">
+          <div className="flex w-full mb-5 lg:mb-0 lg:pl-8 flex-col">
             <h2 className="text-4xl font-bold mb-3">{movie?.title}</h2>
 
             <div className="flex items-center space-x-2">
