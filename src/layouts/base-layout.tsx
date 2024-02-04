@@ -6,7 +6,7 @@ export type BaseLayoutProps = {
 
 export const BaseLayout = ({ children }: BaseLayoutProps) => {
   return (
-    <section className="min-h-screen flex flex-col items-center">
+    <section className="min-h-screen w-screen overflow-x-hidden flex flex-col items-center">
       <NavigationBar />
 
       {children}

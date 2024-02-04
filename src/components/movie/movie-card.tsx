@@ -11,10 +11,9 @@ import { RouteName, getRoutePath } from "@/routes";
 
 export type MovieCardProps = {
   movie: Movie;
-  height?: number;
 };
 
-export const MovieCard = ({ movie, height = 420 }: MovieCardProps) => {
+export const MovieCard = ({ movie }: MovieCardProps) => {
   const { toast } = useToast();
 
   const navigate = useNavigate();
@@ -57,9 +56,7 @@ export const MovieCard = ({ movie, height = 420 }: MovieCardProps) => {
       }
       className="overflow-hidden"
     >
-      <CardContent
-        className={`p-0 m-0 relative cursor-pointer group flex h-[${height}px] items-center justify-center`}
-      >
+      <CardContent className="p-0 m-0 relative cursor-pointer group flex h-[300px] md:h-[350px] lg:h-[450px] items-center justify-center">
         <img
           className="w-full h-full object-fill group-hover:scale-105 transition-all duration-500"
           src={movie.poster}

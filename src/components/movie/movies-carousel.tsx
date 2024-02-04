@@ -55,7 +55,7 @@ export const MoviesCarousel = ({ title, searchQuery }: MoviesCarouselProps) => {
           {movies.map((movie) => (
             <CarouselItem
               key={movie.imdbID}
-              className="md:basis-1/2 lg:basis-1/4"
+              className="basis-1/2 md:basis-1/3 lg:basis-1/4"
             >
               <MovieCard movie={movie} />
             </CarouselItem>

@@ -34,7 +34,7 @@ export const Footer = () => {
           <h4 className="scroll-m-20 tracking-tight mr-20">Coderama Movies</h4>
         </div>
 
-        <div className="flex flex-row space-x-5">
+        <div className="flex flex-col lg:flex-row space-y-2 lg:space-x-5">
           <FooterLink label="About" />
           <FooterLink label="Contact" />
           <FooterLink label="Terms of Service" />

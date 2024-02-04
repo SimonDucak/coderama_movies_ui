@@ -81,7 +81,7 @@ export const MyFavourites = () => {
       useWindow={true}
     >
       <BaseLayout>
-        <div className="space-y-6 w-full flex flex-col max-w-[1280px] items-start pt-40 pb-20">
+        <div className="space-y-6 px-4 w-full flex flex-col max-w-[1280px] items-start pt-40 pb-20">
           <div>
             <h2 className="text-4xl font-bold mb-2">My Favourites</h2>
 
@@ -91,7 +91,7 @@ export const MyFavourites = () => {
             </p>
           </div>
 
-          <div className="w-full grid grid-cols-4  gap-6">
+          <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {favouriteMovies
               .filter((m) => favouriteMoviesIds.some((f) => f == m.imdbID))
               .map((movie) => (

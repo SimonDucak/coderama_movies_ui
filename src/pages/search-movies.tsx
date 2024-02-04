@@ -103,18 +103,18 @@ export const SearchMovies = () => {
       useWindow={true}
     >
       <BaseLayout>
-        <section className="py-40 px-4 w-full flex items-center justify-center">
+        <section className="py-[80px] lg:py-40 px-4 w-full flex items-center justify-center">
           <div className="w-full max-w-[1280px] flex flex-col items-center">
             <Input
-              className="w-full max-w-[640px] h-16 mb-12"
+              className="w-full max-w-[640px] h-16 mb-6 lg:mb-12"
               placeholder="Search for a movie..."
               autoFocus={true}
               onChange={(e) => searchTaskDebounced(e.target.value)}
             />
 
-            <div className="w-full grid grid-cols-5  gap-6">
+            <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {movies.map((movie) => (
-                <MovieCard key={movie.imdbID} movie={movie} height={350} />
+                <MovieCard key={movie.imdbID} movie={movie} />
               ))}
             </div>
           </div>

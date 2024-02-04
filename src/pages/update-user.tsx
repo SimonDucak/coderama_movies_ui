@@ -82,7 +82,7 @@ export const UpdateUser = () => {
 
   return (
     <BaseLayout>
-      <div className="space-y-6 w-full flex flex-col max-w-[1280px] items-start py-40">
+      <div className="space-y-6 px-4 w-full flex flex-col max-w-[1280px] items-start py-[80px] md:py-40">
         <div>
           <h3 className="text-lg font-medium">User Settings</h3>
 
